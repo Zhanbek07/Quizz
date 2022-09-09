@@ -1,12 +1,37 @@
-//
-//  ViewController.swift
-//  Quizzler-iOS13
-//
-//  Created by Angela Yu on 12/07/2019.
-//  Copyright © 2019 The App Brewery. All rights reserved.
-//
 
 import UIKit
+
+@IBDesignable extension UIButton {
+
+    @IBInspectable var borderWidth: CGFloat {
+        set {
+            layer.borderWidth = newValue
+        }
+        get {
+            return layer.borderWidth
+        }
+    }
+
+    @IBInspectable var cornerRadius: CGFloat {
+        set {
+            layer.cornerRadius = newValue
+        }
+        get {
+            return layer.cornerRadius
+        }
+    }
+
+    @IBInspectable var borderColor: UIColor? {
+        set {
+            guard let uiColor = newValue else { return }
+            layer.borderColor = uiColor.cgColor
+        }
+        get {
+            guard let color = layer.borderColor else { return nil }
+            return UIColor(cgColor: color)
+        }
+    }
+}
 
 class ViewController: UIViewController {
     
@@ -31,9 +56,9 @@ class ViewController: UIViewController {
         let userGotItRight = quizBrain.checkAnswer(userAnswer: userAnswer)
         
         if userGotItRight {
-            sender.backgroundColor = UIColor.green
+            sender.backgroundColor = UIColor.green.withAlphaComponent(0.4)
         } else {
-            sender.backgroundColor = UIColor.red
+            sender.backgroundColor = UIColor.red.withAlphaComponent(0.4)
         }
         
         quizBrain.nextQuestion()
